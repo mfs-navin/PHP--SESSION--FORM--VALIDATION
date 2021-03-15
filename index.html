@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+	<!--Bootstrap css-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+
+	<!-- Custom CSS-->
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+
+	<title>Registration Page</title>
+
+
+
+</head>
+<body>
+	<div class="container-fluid" id="main_container">
+		<br>
+		<div class="row justify-content-center">
+			<div class="col-md-5">
+				<div class="card">
+					<header class="card-header">
+						<a href class="float-right btn btn-outline-primary mt-1">Log In</a>
+						<h4 class="card-title mt-2">Registration</h4>
+					</header>
+					<article class="card-body">
+						<form  id="signup" class="form" method="post" enctype="multipart/form-data">
+							<div class="row form-group">
+								<div class="col">
+									<label  for="name">Name</label>
+									<input type="text" class="form-control" id="name" name="name">
+									<span class="error">This field is required</span>
+								</div>														
+							</div>
+							
+							<div class="form-group">
+								<label class="form-check-inline">
+									<input class="form-check-input" type="radio" id="male" name="male" value="male">
+									<span class="form-check-label"> Male </span>
+								</label>
+								<label class="form-check-inline">
+									<input class="form-check-input" type="radio" id="female" name="male" value="female">
+									<span class="form-check-label"> Female </span>
+								</label>
+							</div>
+							<div class="form-group">
+								<label for="email">Email Address</label>
+								<input type="email" class="form-control" id="email" name="email">
+								<span class="error">A valid email address is required</span>
+							</div>
+							<div class="form-group">
+								<label for="phone">Contact Number</label>
+								<input type="text" class="form-control"  name="phone" id="phone">
+								<span class="error">This field is required</span>
+							</div>
+							
+							<div class="form-group">
+								<label>Skills</label>
+							</div>
+							<div class="form-group ml-5">
+								<label class="checkbox-inline" for="c++"><input type="checkbox" name="skills[]" class="checkboxvar" value="c++" id="c++"> C++ </label>
+								<label class="checkbox-inline" for="java"><input type="checkbox" name="skills[]" class="checkboxvar" value="java" id="java"> Java </label>
+								<label class="checkbox-inline" for="python"><input type="checkbox" name="skills[]" class="checkboxvar" value="python" id="python"> Python </label>
+								<label class="checkbox-inline" for="html"><input type="checkbox" name="skills[]" class="checkboxvar" value="html" id="html"> HTML </label>
+								<label class="checkbox-inline" for="php"><input type="checkbox" name="skills[]" class="checkboxvar" value="php" id="php"> PHP</label>
+								
+								<span class="error">Please select atleast one skill</span>
+							</div> 
+							<div class="form-group">
+								<label for="file">Upload Profile Photo:</label>
+								
+								<input type="file" class="form-control" name="profile_pic" id="file">
+								<span class="error">Please upload a profile photo</span>
+							</div>
+							<div class="form-group">
+								<label for="about">About</label>
+								<textarea class="form-control" rows="3" name="about" placeholder="Enter something about yourself." id="about"></textarea>
+								<span class="error">This field is required</span>
+							</div>
+							<div class="form-group">
+								<label for="addr">Address</label>
+								<input type="text" class="form-control" id="addr" name="addr">
+								<span class="error">This field is required</span>
+							</div>
+							<div class="form-group">
+								<label for="education">Educational Qualification</label>
+								<div class="dropdown" id="drop_education" name="drop_education">
+									<select id="education" class="form-control" name="education">
+										<option value="0">Choose</option>
+										<option value="metric">Metric</option>
+										<option value="higher_secondary">Higher Secondary</option>
+										<option value="graduate">Graduate</option>
+										<option value="post_graduate">Post Graduate</option>
+									</select>
+									<span class="error">This field is required</span>	
+								</div>
+							</div>
+						<!--
+							<div class="form-group">
+								<label>Interests</label>
+								<select class="selectpicker" multiple id="my">
+									<option>Mustard</option>
+									<option>Ketchup</option>
+									<option>Relish</option>
+								</select>
+
+							</div> -->
+
+							<div class="form-group">
+                                <label for="links">Professional Links:</label>
+                                <br>
+                                <input type="text" class="form-control" name="linkedin" placeholder="LinkedIn link" id="linkedin">
+                                <span class="error">This field is required</span>
+                                <input type="text" class="form-control" name="github" placeholder="Github" id="github">
+                                <span class="error">This field is required</span>
+                            </div>
+
+							<div class="form-group">
+								<button type="submit" class="btn btn-primary btn-block" name="submit" id="submit">Register</button>
+								
+							</div>
+						</form>
+                        
+                    </article>
+                </div>
+            </div>
+            <div class="form-group">
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- scripts-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+    <script src="js/register.min.js"></script>
+
+</body>
+</html>
