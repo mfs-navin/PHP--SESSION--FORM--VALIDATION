@@ -1,19 +1,19 @@
 <?php
-	POST_start();
+	session_start();
 
-if(!isset($_POST["firstName"]))
+if(!isset($_SESSION["firstName"]))
 {
-    $name = $_POST["name"];
-    $gender = $_POST["gender"];
-    $email = $_POST["email"];
-    $phone = $_POST["phone"];
-    $skills = $_POST["skills"];
-    $photo = $_POST["profile_pic"];
-    $about = $_POST["about"];
-    $address = $_POST["addr"];
-    $education = $_POST["education"];
-    $linkedin = $_POST["linkedin"];
-    $github = $_POST["github"];
+    $name = $_SESSION["name"];
+    $gender = $_SESSION["gender"];
+    $email = $_SESSION["email"];
+    $phone = $_SESSION["phone"];
+    $skills = $_SESSION["skills"];
+    $photo = $_SESSION["profile_pic"];
+    $about = $_SESSION["about"];
+    $address = $_SESSION["addr"];
+    $education = $_SESSION["education"];
+    $linkedin = $_SESSION["linkedin"];
+    $github = $_SESSION["github"];
 
     echo "Your inputs:". "<br />";
 	echo "-------------------------------------". "<br />";
@@ -21,7 +21,11 @@ if(!isset($_POST["firstName"]))
 	echo "Gender" . print_r($gender) . "<br />";
 	echo "Email: " . $email . "<br />";
 	echo "Phone: " . $phone . "<br />";
-	echo "Skill: " . print_r($skills) . "<br />";
+	echo "Skill: " ;
+	foreach ($skills as $key => $value) {
+		echo $value . ', ';
+	}
+	echo "<br/>";
 	echo "Photo: " . $photo ."<br/>";
 	echo '<img src="/upload/'.$photo .'" alt="Random image" />'."<br /><br />";
 	echo "About: " . $about . "<br />";
