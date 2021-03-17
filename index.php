@@ -1,4 +1,6 @@
-
+<?php
+session_start();
+?>
 
 <!DOCTYPE html>
 <html>
@@ -30,7 +32,7 @@
 						<h4 class="card-title mt-2">Registration</h4>
 					</header>
 					<article class="card-body">
-						<form  id="signup" class="form" method="post"  enctype="multipart/form-data">
+						<form  id="signup" class="form" method="post"  enctype="multipart/form-data" >
 							<div class="row form-group">
 								<div class="col">
 									<label  for="name">Name</label>
@@ -44,16 +46,16 @@
                                 <br>
 								<label class="form-check-inline" for="male">
                                     <span class="form-check-label "> Male </span>
-									<input class="form-control form-check-input" type="radio" id="male" name="gender" value="1">
+									<input class="form-check-input" type="radio" id="male" name="gender" value="1">
 								</label>
 								<label class="form-check-inline" for="female">
                                     <span class="form-check-label"> Female </span>
-									<input class="form-control form-check-input" type="radio" id="female" name="gender" value="0">
+									<input class="form-check-input" type="radio" id="female" name="gender" value="2">
 									
 								</label>
 
                                 <br>
-                               <span class="error" id="gender_error">Please select your gender</span>
+                               <span class="error" id="error_gender">Please select your gender</span>
 							</div>
 							<div class="form-group">
 								<label for="email">Email Address</label>
@@ -65,18 +67,19 @@
 								<input type="text" class="form-control"  name="phone" id="phone">
 								<span class="error">This field is required</span>
 							</div>
-							<!--
+							
 							<div class="form-group">
 								<label>Skills</label>
 							</div>
-							<div class="form-group ml-5">
-								<label class="checkbox-inline" for="c++"><input type="checkbox" name="skills" class="form-control checkboxvar" value="c++" id="c++"> C++ </label>
-								<label class="checkbox-inline" for="java"><input type="checkbox" name="skills" class="form-control checkboxvar" value="java" id="java"> Java </label>
-								<label class="checkbox-inline" for="python"><input type="checkbox" name="skills" class="form-control checkboxvar" value="python" id="python"> Python </label>
-								<label class="checkbox-inline" for="html"><input type="checkbox" name="skills" class="form-control checkboxvar" value="html" id="html"> HTML </label>
-								<label class="checkbox-inline" for="php"><input type="checkbox" name="skills" class="form-control checkboxvar" value="php" id="php"> PHP</label>
+							<div class="form-group ml-5" id="skill_checkbox">
+								<label class="checkbox-inline" for="c++"><input type="checkbox" name="skills[]" class="checkboxvar" value="c++" id="c++"> C++ </label>
+								<label class="checkbox-inline" for="java"><input type="checkbox" name="skills[]" class="checkboxvar" value="java" id="java"> Java </label>
+								<label class="checkbox-inline" for="python"><input type="checkbox" name="skills[]" class="checkboxvar" value="python" id="python"> Python </label>
+								<label class="checkbox-inline" for="html"><input type="checkbox" name="skills[]" class="checkboxvar" value="html" id="html"> HTML </label>
+								<label class="checkbox-inline" for="php"><input type="checkbox" name="skills[]" class="checkboxvar" value="php" id="php"> PHP</label>
+                                <br>
 								<span class="error" id="error_checkbox">Please select atleast one skill</span>
-							</div> -->
+							</div> 
 							<div class="form-group">
 								<label for="profile_pic">Upload Profile Photo:</label>
 								<input type="file" class="form-control" name="profile_pic" id="profile_pic">
@@ -106,17 +109,6 @@
 									<span class="error">This field is required</span>	
 								</div>
 							</div>
-						<!--
-							<div class="form-group">
-								<label>Interests</label>
-								<select class="selectpicker" multiple id="my">
-									<option>Mustard</option>
-									<option>Ketchup</option>
-									<option>Relish</option>
-								</select>
-
-							</div> -->
-
 							<div class="form-group">
 								<label for="links">Professional Links:</label>
 								<br>
@@ -343,7 +335,7 @@
 
                                 if(!$error)
                                 {
-                                    session_start();
+
                                     $_SESSION["name"] = $name;
                                     $_SESSION["gender"] = $gender; 
                                     $_SESSION["email"] = $email ;
@@ -357,8 +349,9 @@
                                     $_SESSION["github"] = $github;
 
                                     echo "<script>location.href='php/process.php';</script>";
-
                                     exit;
+
+                                    
                                 }
                             }
 
@@ -372,8 +365,6 @@
             </div>
         </div>
     </div>
-
-
 
 
     <!-- scripts-->
