@@ -1,9 +1,10 @@
 <?php
 	session_start();
 
-if($_SESSION["name"])
+if($_SESSION)
 {
 
+// Reading session variables to get the value of form data
     $name = $_SESSION["name"];
     $gender = $_SESSION["gender"];
     $email = $_SESSION["email"];
@@ -17,7 +18,7 @@ if($_SESSION["name"])
     $github = $_SESSION["github"];
 
 
-
+// Showing the data inputs by the user 
     echo "Your inputs:". "<br />";
 	echo "-------------------------------------". "<br />";
 	echo "Name: " . $name . "<br />";
@@ -44,7 +45,7 @@ if($_SESSION["name"])
 	echo "Github url: ". $github. "<br/>";
 }
 
-	session_unset();
+// Destroying session
 	session_destroy();
 
 

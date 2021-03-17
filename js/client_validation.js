@@ -86,7 +86,6 @@ $(document).ready(function()
 		if(is_phone.match(/^[0-9]+$/) == null)
 		{
 			phone_err=true;
-			console.log('phone',if_error);
 			input.removeClass("valid").addClass("invalid");
 			input.next().removeClass('error').addClass('error_show').text("There should be only numbers");
 		}

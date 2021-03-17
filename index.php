@@ -48,16 +48,12 @@ session_start();
 					<!--Gender Field-->		
 							<div class="form-group">
                                 <label>Gender</label>
-                                <br>
-								<label class="form-check-inline" for="male">
-                                    <span class="form-check-label "> Male </span>
-									<input class="form-check-input" type="radio" id="male" name="gender" value="1">
-								</label>
-								<label class="form-check-inline" for="female">
-                                    <span class="form-check-label"> Female </span>
-									<input class="form-check-input" type="radio" id="female" name="gender" value="2">
-								</label>
-                                <br>
+                                <div>
+									<label><input type="radio" name="gender" value="1"> Male</label>
+								</div>
+								<div>
+									<label><input type="radio" name="gender" value="2"> Female</label>
+								</div>
                                <span class="error" id="error_gender">Please select your gender</span>
 							</div>
 
@@ -79,7 +75,7 @@ session_start();
 							<div class="form-group">
 								<label>Skills</label>
 							</div>
-							<div class="form-group ml-5" id="skill_checkbox">
+							<div class="form-group" id="skill_checkbox">
 								<label class="checkbox-inline" for="c++"><input type="checkbox" name="skills[]" class="checkboxvar" value="c++" id="c++"> C++ </label>
 								<label class="checkbox-inline" for="java"><input type="checkbox" name="skills[]" class="checkboxvar" value="java" id="java"> Java </label>
 								<label class="checkbox-inline" for="python"><input type="checkbox" name="skills[]" class="checkboxvar" value="python" id="python"> Python </label>
@@ -93,6 +89,7 @@ session_start();
 							<div class="form-group">
 								<label for="profile_pic">Upload Profile Photo:</label>
 								<input type="file" class="form-control" name="profile_pic" id="profile_pic">
+								<br>
                                 <input type="button" name="upload" value="Upload" id="upload">
 								<span class="error">Please upload a profile photo</span>
 							</div>
@@ -374,7 +371,7 @@ session_start();
 	                                    $_SESSION["linkedin"] = $linkedin;
 	                                    $_SESSION["github"] = $github;
 
-	                                    echo "<script>location.href='php/process.php';</script>";
+	                                    echo "<script>location.href='php/output.php';</script>";
 	                                    exit;
 	                                }
 	                            }
@@ -390,7 +387,7 @@ session_start();
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!-- Script for client side validation -->
-    <script src="js/register.js"></script>
+    <script src="js/client_validation.js"></script>
 
 </body>
 </html>
