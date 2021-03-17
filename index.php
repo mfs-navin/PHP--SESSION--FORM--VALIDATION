@@ -37,7 +37,7 @@ session_start();
 								<div class="col">
 									<label  for="name">Name</label>
 									<input type="text" class="form-control" id="name" name="name">
-									<span class="error">This field is required</span>
+									<span class="error" id="error_name">This field is required</span>
 								</div>														
 							</div>
 							
@@ -60,12 +60,12 @@ session_start();
 							<div class="form-group">
 								<label for="email">Email Address</label>
 								<input type="email" class="form-control" id="email" name="email">
-								<span class="error">A valid email address is required</span>
+								<span class="error" id="error_email">A valid email address is required</span>
 							</div>
 							<div class="form-group">
 								<label for="phone">Contact Number</label>
 								<input type="text" class="form-control"  name="phone" id="phone">
-								<span class="error">This field is required</span>
+								<span class="error" id="error_phone">This field is required</span>
 							</div>
 							
 							<div class="form-group">
@@ -89,34 +89,34 @@ session_start();
 							<div class="form-group">
 								<label for="about">About</label>
 								<textarea class="form-control" rows="3" name="about" placeholder="Enter something about yourself." id="about"></textarea>
-								<span class="error">This field is required</span>
+								<span class="error" id="error_about">This field is required</span>
 							</div>
 							<div class="form-group">
 								<label for="addr">Address</label>
 								<input type="text" class="form-control" id="addr" name="addr">
-								<span class="error">This field is required</span>
+								<span class="error" id="error_address">This field is required</span>
 							</div>
 							<div class="form-group">
 								<label for="education">Educational Qualification</label>
 								<div class="dropdown" id="drop_education" name="drop_education">
 									<select id="education" class="form-control" name="education">
-										<option value="0">Choose</option>
+										<option value="0">Select</option>
 										<option value="metric">Metric</option>
 										<option value="higher_secondary">Higher Secondary</option>
 										<option value="graduate">Graduate</option>
 										<option value="post_graduate">Post Graduate</option>
 									</select>
-									<span class="error">This field is required</span>	
+									<span class="error" id="error_edu">Please select a option</span>	
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="links">Professional Links:</label>
 								<br>
 								<input type="text" class="form-control" name="linkedin" placeholder="LinkedIn link" id="linkedin">
-                                <span class="error">This field is required</span>
+                                <span class="error" id="error_linkedin">This field is required</span>
                                 <br>
 								<input type="text" class="form-control" name="github" placeholder="Github" id="github">
-                                <span class="error">This field is required</span>
+                                <span class="error" id="error_github">This field is required</span>
 							</div>
 
 							<div class="form-group">
@@ -145,7 +145,7 @@ session_start();
 
                                 $error = false;
 
-// Name Validation
+                            // Name Validation
                                 if ( empty($name))
                                 {
                                     echo "Please enter your name" . "<br />";
@@ -162,7 +162,7 @@ session_start();
                                     $error = true;
                                 }
 
-// Gender Validation
+                            // Gender Validation
                                 if (empty($_POST["gender"])) {
                                     echo "Please choose your gender". "<br />";
                                     $error = true;
@@ -172,7 +172,7 @@ session_start();
                                 }
 
 
-// Skills validation
+                            // Skills validation
                                 if (empty($_POST["skills"])) {
                                     echo "Please choose atleast one skill" . "<br/>";
                                     $error = true;
@@ -181,7 +181,8 @@ session_start();
                                     $skills = $_POST['skills'];
                                 }
 
-//Email Validation
+
+                            //Email Validation
                                 if (empty($email)) {
 
                                     echo "Please enter your email" . "<br />";
@@ -194,7 +195,7 @@ session_start();
                                     $error = true;
                                 }
 
-// Contact Number Validation
+                            // Contact Number Validation
                                 if (empty($phone)) {
                                     echo "Please enter your contact number" . "<br />";
                                     $error = true;
@@ -210,31 +211,33 @@ session_start();
                                     $error = true;
                                 }
 
-//File validation    
+                            //File validation    
                                 if(!empty($_FILES["profile_pic"]["name"]))
                                 {
-//user has browsed a file to upload
+
+                            //user has browsed a file to upload
                                     if($_FILES["profile_pic"]["error"] == 0)
                                     {
-//no errors with the file
 
-//alloweed file type array
+                            //no errors with the file
+
+                            //alloweed file type array
                                         $allowed_types = array("image/jpeg", "image/jpg", "image/png", "image/gif");
 
                                         if((in_array($_FILES["profile_pic"]["type"], $allowed_types)))
                                         {
-                //correct file type
+                                        //correct file type
 
-                //get the dot position
+                                        //get the dot position
                                             $dot_pos = strrpos($_FILES["profile_pic"]["name"], ".");
 
-                //from dot position to the end is the extension
+                                        //from dot position to the end is the extension
                                             $extension = substr($_FILES["profile_pic"]["name"], $dot_pos);
 
-                //use date function to get random number
+                                        //use date function to get random number
                                             $random_name = date("YmdHis");
 
-                //add date function value with extension to get unique new file name
+                                        //add date function value with extension to get unique new file name
                                             $new_name = $random_name . $extension;
 
 
@@ -262,26 +265,26 @@ session_start();
                                         }
                                         else
                                         {
-                    //invalid file type
+                                     //invalid file type
                                             echo "Please upload JPG or PNG files". "<br />";
                                             $error = true;
                                         }
                                     }
                                     else
                                     {
-                //error with the file uploading
+                                //error with the file uploading
                                         echo "There are some errors with the file". "<br />";
                                         $error = true;
                                     }
                                 }
                                 else
                                 {
-            //error message for not selecting any file
+                            //error message for not selecting any file
                                     echo "Please browse a file to upload". "<br />";
                                     $error = true;
                                 }
 
-// About Validation
+                        // About Validation
                                 if (empty($about)) {
                                     echo "Please enter something about yourself" . "<br />";
                                     $error = true;
@@ -292,7 +295,7 @@ session_start();
                                     $error = true;
                                 }
 
-// Address Validation
+                        // Address Validation
                                 if (empty($address)) {
                                     echo "Address field should not be empty" . "<br />";
                                     $error = true;
@@ -303,20 +306,20 @@ session_start();
                                     $error = true;
                                 }
 
-// Education Validation
+                        // Education Validation
                                 if ($education == '0') {
                                     echo "Please choose your educational qualification" . "<br />";
                                     $error = true;
                                 }
 
-// Professional link validation
+                        // Professional link validation
                                 if (empty($linkedin)) {
                                     echo "Please enter your Linkedin url". "<br/>";
                                     $error = true;
                                 }
 
                                 else{
-                                    if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$linkedin)) {
+                                    if (!preg_match("/((https?:\/\/)?((www|\w\w)\.)?linkedin\.com\/)+[a-zA-Z]*/i",$linkedin)) {
                                         echo "Please enter a valid url". "<br/>";
                                         $error = 'true';
                                     }
@@ -327,9 +330,9 @@ session_start();
                                     $error = true;
                                 }
                                 else{
-                                    if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$linkedin)) {
+                                    if (!preg_match("/((https?:\/\/)?((www|\w\w)\.)?github\.com\/)+[a-zA-Z]*/i",$github)) {
                                         echo "Please enter a valid url". "<br/>";
-                                        $error = 'true';
+                                        $error = true;
                                     }
                                 }
 
@@ -371,7 +374,7 @@ session_start();
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
-    <script src="js/register.min.js"></script>
+    <script src="js/register.js"></script>
 
 </body>
 </html>
