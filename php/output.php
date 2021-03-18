@@ -1,7 +1,7 @@
 <?php
 	session_start();
 
-if($_SESSION)
+if(isset($_SESSION))
 {
 
 // Reading session variables to get the value of form data

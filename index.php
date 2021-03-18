@@ -89,8 +89,8 @@ session_start();
 							<div class="form-group">
 								<label for="profile_pic">Upload Profile Photo:</label>
 								<input type="file" class="form-control" name="profile_pic" id="profile_pic">
-								<br>
-                                <input type="button" name="upload" value="Upload" id="upload">
+								
+                                <input type="button" class="mt-2" name="upload" value="Upload" id="upload">
 								<span class="error">Please upload a profile photo</span>
 							</div>
 
