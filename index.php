@@ -8,18 +8,13 @@ session_start();
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
 	<!--Bootstrap css-->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
 
 	<!-- Custom CSS-->
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 
 	<title>Registration Page</title>
-
-
-
 </head>
 <body>
 	<div class="container-fluid" id="main_container">
@@ -29,8 +24,8 @@ session_start();
 				<div class="card">
                 <!--Header-->      
 					<header class="card-header">
-						<a href class="float-right btn btn-outline-primary mt-1">Log In</a>
-						<h4 class="card-title mt-2">Registration</h4>
+						<a href class="float-right btn btn-outline-primary my-1">Log In</a>
+						<h4 class="card-title my-2">Registration</h4>
 					</header>
 					<article class="card-body">
                 <!--Form Body-->       
@@ -44,7 +39,6 @@ session_start();
 									<span class="error" id="error_name">This field is required</span>
 								</div>														
 							</div>
-							
 					<!--Gender Field-->		
 							<div class="form-group">
                                 <label>Gender</label>
@@ -56,21 +50,18 @@ session_start();
 								</div>
                                <span class="error" id="error_gender">Please select your gender</span>
 							</div>
-
 					<!--Email Field-->		
 							<div class="form-group">
 								<label for="email">Email Address</label>
 								<input type="email" class="form-control" id="email" name="email">
 								<span class="error" id="error_email">A valid email address is required</span>
 							</div>
-
 					<!--Contact Number Field-->		
 							<div class="form-group">
 								<label for="phone">Contact Number</label>
 								<input type="text" class="form-control"  name="phone" id="phone">
 								<span class="error" id="error_phone">This field is required</span>
 							</div>
-							
 					<!--Skills Field-->		
 							<div class="form-group">
 								<label>Skills</label>
@@ -84,7 +75,6 @@ session_start();
                                 <br>
 								<span class="error" id="error_skills">Please select atleast one skill</span>
 							</div> 
-
 					<!--Profile Picture Field-->		
 							<div class="form-group">
 								<label for="profile_pic">Upload Profile Photo:</label>
@@ -93,7 +83,6 @@ session_start();
                                 <input type="button" class="mt-2" name="upload" value="Upload" id="upload">
 								<span class="error">Please upload a profile photo</span>
 							</div>
-
 					<!--User About Field-->		
 							<div class="form-group">
 								<label for="about">About</label>
@@ -101,26 +90,24 @@ session_start();
 								<span class="error" id="error_about">This field is required</span>
 							</div>
 							<div class="form-group">
-								<label for="addr">Address</label>
-								<input type="text" class="form-control" id="addr" name="addr">
+								<label for="address">Address</label>
+								<input type="text" class="form-control" id="address" name="address">
 								<span class="error" id="error_address">This field is required</span>
 							</div>
-
 					<!--Educational Qualification Field-->		
 							<div class="form-group">
 								<label for="education">Educational Qualification</label>
-								<div class="dropdown" id="drop_education" name="drop_education">
+								<div class="dropdown">
 									<select id="education" class="form-control" name="education">
 										<option value="0">Select</option>
-										<option value="metric">Metric</option>
-										<option value="higher_secondary">Higher Secondary</option>
-										<option value="graduate">Graduate</option>
-										<option value="post_graduate">Post Graduate</option>
+										<option value="10">Metric</option>
+										<option value="12">Higher Secondary</option>
+										<option value="16">Graduate</option>
+										<option value="19">Post Graduate</option>
 									</select>
 									<span class="error" id="error_edu">Please select a option</span>	
 								</div>
 							</div>
-
 					<!--Professional Links Field-->		
 							<div class="form-group">
 								<label for="links">Professional Links:</label>
@@ -131,7 +118,6 @@ session_start();
 								<input type="text" class="form-control" name="github" placeholder="Github" id="github">
                                 <span class="error" id="error_github">This field is required</span>
 							</div>
-
 					<!--Register button-->		
 							<div class="form-group">
 								<button type="submit" class="btn btn-primary btn-block" name="register" id="register">Register</button>
@@ -145,87 +131,76 @@ session_start();
                     <!-- To check if the server side validation is working or not please comment out line number 395 which includes "js/register.js" as scipt -->   
 
                             <?php
-
 	                            if(isset($_POST["register"]))
 	                            {
-
 	                        // Declaring variables to store form data and to validate
-	                                $name = $_POST["name"];
+	                                $name = filter_var($_POST["name"], FILTER_SANITIZE_STRING);
 	                                $gender = '';
 	                                $email = $_POST["email"];
 	                                $phone = $_POST["phone"];
 	                                $skills = '';
 	                                $photo = '';
 	                                $about = $_POST["about"];
-	                                $address = $_POST["addr"];
+	                                $address = $_POST["address"];
 	                                $education = $_POST["education"];
 	                                $linkedin = $_POST["linkedin"];
 	                                $github = $_POST["github"];
 
 	                                $error = false;
+	                                $is_empty = false;
 
-	                            // Name Validation
-	                                if ( empty($name))
-	                                {
-	                                    echo "Please enter your name" . "<br />";
-	                                    $error = true;
-	                                } 
+	                                $error_list = array();
 
-	                                elseif (!preg_match('/^[A-Za-z ]+$/', $name)) {
-	                                    echo "Your name should only contain alphabets" . "<br />";
-	                                    $error = true;
+                            // Checking if the required fields are empty
+	                                if (empty($name) || empty($email) || empty($phone) || empty($about) || empty($address) || empty($education) || empty($linkedin) || empty($github)) {
+	                                	
+	                                	array_push($error_list, "One or more input fields are empty. Please provide input for all required fields.");
+
+	                                	$is_empty = true;
 	                                }
 
-	                                elseif (strlen($name) < 3) {
-	                                    echo "Your name should be more than 3 characters" . "<br />";
+	                            // Name Validation
+	                                $name = filter_var($name, FILTER_SANITIZE_STRING);
+
+									if (!preg_match('/^[A-Za-z ]+$/', $name) && !$is_empty) {
+	                                    array_push($error_list, "Your name should only contain alphabets");
+	                                    $error = true;
+	                                }
+	                                elseif (strlen($name) < 3 && !$is_empty) 
+									{
+	                                    array_push($error_list, "Your name should be more than 3 characters");
 	                                    $error = true;
 	                                }
 
 	                            // Gender Validation
-	                                if (empty($_POST["gender"])) {
-	                                    echo "Please choose your gender". "<br />";
-	                                    $error = true;
-	                                }
-	                                else{
+	                                if(!$is_empty) 
+	                                {
 	                                    $gender = $_POST["gender"];
 	                                }
 
-
 	                            // Skills validation
-	                                if (empty($_POST["skills"])) {
-	                                    echo "Please choose atleast one skill" . "<br/>";
-	                                    $error = true;
-	                                }
-	                                else{
+	                                if (!$is_empty)
+	                                {
 	                                    $skills = $_POST['skills'];
 	                                }
 
-
 	                            //Email Validation
-	                                if (empty($email)) {
+	                                if (!filter_var($email, FILTER_VALIDATE_EMAIL) && !$is_empty) {
 
-	                                    echo "Please enter your email" . "<br />";
-	                                    $error = true;
-	                                }
-
-	                                elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-
-	                                    echo "Please enter a valid email address" . "<br />";
+	                                    array_push($error_list, "Please enter a valid email address");
 	                                    $error = true;
 	                                }
 
 	                            // Contact Number Validation
-	                                if (empty($phone)) {
-	                                    echo "Please enter your contact number" . "<br />";
+	                                $phone = filter_var($phone, FILTER_SANITIZE_STRING);
+
+	                                if (!preg_match('/^[0-9]+$/', $phone) && !$is_empty ) 
+	                                {
+	                                    array_push($error_list, "There should be only numbers");
 	                                    $error = true;
 	                                }
 
-	                                elseif (!preg_match('/^[0-9]+$/', $phone)) {
-	                                    echo "There should be only numbers" . "<br />";
-	                                    $error = true;
-	                                }
-
-	                                if (strlen($phone) != 10) {
+									if (strlen($phone) != 10 && !$is_empty) {
 	                                    echo "Your phone number should be 10 digits long" . "<br />";
 	                                    $error = true;
 	                                }
@@ -254,7 +229,7 @@ session_start();
 	                                            $extension = substr($_FILES["profile_pic"]["name"], $dot_pos);
 
 	                                        //use date function to get random number
-	                                            $random_name = date("YmdHis");
+	                                            $random_name = $file_name[0].date("YmdHis").rand(100,999);
 
 	                                        //add date function value with extension to get unique new file name
 	                                            $new_name = $random_name . $extension;
@@ -268,96 +243,80 @@ session_start();
 	                                                if($uploaded)
 	                                                {
 	                                                    $photo = $new_name;
-
 	                                                }
 	                                                else
 	                                                {
-	                                                    echo "File could not be uploaded". "<br />";
+	                                                    array_push($error_list, "File could not be uploaded");
 	                                                    $error = true;
 	                                                }   
 	                                            }
 	                                            else
 	                                            {
-	                                                echo "File should be less than 20KB " . "<br />" . "Your file size: " . $_FILES["profile_pic"]["size"]. "<br />";
+	                                                array_push($error_list, "File should be less than 20KB " . "<br />" . "Your file size: " . $_FILES["profile_pic"]["size"]. "<br />");
 	                                                $error = true;
 	                                            }
 	                                        }
 	                                        else
 	                                        {
 	                                     //invalid file type
-	                                            echo "Please upload JPG or PNG files". "<br />";
+	                                            array_push($error_list, "Please upload JPG or PNG files");
 	                                            $error = true;
 	                                        }
 	                                    }
 	                                    else
 	                                    {
 	                                //error with the file uploading
-	                                        echo "There are some errors with the file". "<br />";
+	                                        array_push($error_list, "There are some errors with the file");
 	                                        $error = true;
 	                                    }
 	                                }
 	                                else
 	                                {
 	                            //error message for not selecting any file
-	                                    echo "Please browse a file to upload". "<br />";
+	                                    array_push($error_list, "Please browse a file to upload");
 	                                    $error = true;
 	                                }
 
 	                        // About Validation
-	                                if (empty($about)) {
-	                                    echo "Please enter something about yourself" . "<br />";
-	                                    $error = true;
-	                                }
+	                                $about = filter_var($about, FILTER_SANITIZE_STRING);
 
-	                                elseif (strlen($about) < 10) {
-	                                    echo "About section should be more than 10 characters" . "<br />";
+	                                if (strlen($about) < 10 && !$is_empty) {
+	                                    array_push($error_list, "About section should be more than 10 characters");
 	                                    $error = true;
 	                                }
 
 	                        // Address Validation
-	                                if (empty($address)) {
-	                                    echo "Address field should not be empty" . "<br />";
-	                                    $error = true;
-	                                }
+	                                $address = filter_var($address, FILTER_SANITIZE_STRING);
 
-	                                elseif (strlen($address) < 8) {
-	                                    echo "Address section should be more than 8 characters" . "<br />";
+	                                if (strlen($address) < 8 && !$is_empty) {
+	                                    array_push($error_list, "Address section should be more than 8 characters");
 	                                    $error = true;
 	                                }
 
 	                        // Education Validation
 	                                if ($education == '0') {
-	                                    echo "Please choose your educational qualification" . "<br />";
+	                                    array_push($error_list, "Please choose your educational qualification");
 	                                    $error = true;
 	                                }
 
 	                        // Professional link validation
-	                                if (empty($linkedin)) {
-	                                    echo "Please enter your Linkedin url". "<br/>";
-	                                    $error = true;
-	                                }
-
-	                                else{
-	                                    if (!preg_match("/((https?:\/\/)?((www|\w\w)\.)?linkedin\.com\/)+[a-zA-Z]*/i",$linkedin)) {
-	                                        echo "Please enter a valid url". "<br/>";
-	                                        $error = 'true';
-	                                    }
-	                                }
-
-	                                if (empty($github)) {
-	                                    echo "Please enter your Github url" . "<br/>";
-	                                    $error = true;
-	                                }
-	                                else{
-	                                    if (!preg_match("/((https?:\/\/)?((www|\w\w)\.)?github\.com\/)+[a-zA-Z]*/i",$github)) {
-	                                        echo "Please enter a valid url". "<br/>";
-	                                        $error = true;
-	                                    }
-	                                }
-
-	                                if(!$error)
+	                                $linkedin = filter_var($linkedin, FILTER_SANITIZE_URL);
+                                    if (!preg_match("/((https?:\/\/)?((www|\w\w)\.)?linkedin\.com\/)+[a-zA-Z]*/i",$linkedin) && !$is_empty)
+                                    {
+                                        array_push($error_list, "Please enter a valid url");
+                                        $error = 'true';
+                                    }
+	                                
+                                    $github = filter_var($github, FILTER_SANITIZE_URL);
+	                                if (!preg_match("/((https?:\/\/)?((www|\w\w)\.)?github\.com\/)+[a-zA-Z]*/i",$github) && !$is_empty) 
 	                                {
+                                        array_push($error_list, "Please enter a valid url");
+                                        $error = true;
+	                                }
+	                                
 
+	                                if(!$error and !$is_empty)
+	                                {
 	                            /// Creating session variables
 	                                    $_SESSION["name"] = $name;
 	                                    $_SESSION["gender"] = $gender; 
@@ -374,6 +333,12 @@ session_start();
 	                                    echo "<script>location.href='php/output.php';</script>";
 	                                    exit;
 	                                }
+	                                else
+	                                {
+	                                	foreach ($error_list as $key => $value) {
+	                                		echo $value . "<br/>";
+	                                	}
+	                                }
 	                            }
                             ?>
                         </div>
@@ -387,7 +352,7 @@ session_start();
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!-- Script for client side validation -->
-    <script src="js/client_validation.js"></script>
-
+    <!-- <script src="js/client_validation.js"></script>
+ -->
 </body>
 </html>

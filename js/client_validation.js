@@ -108,14 +108,14 @@ $(document).ready(function()
 
 
 	//Address
-	$('#addr').keyup( function ()
+	$('#address').keyup( function ()
 	{
 
 		var input = $(this);
 		var is_name = input.val();
 		if(is_name.length < 10)
 		{
-			addr_err=true;
+			address_err=true;
 			input.removeClass("valid").addClass("invalid");
 			input.next().removeClass('error').addClass('error_show').text("Should be more than 10 Characters");
 		}
@@ -123,13 +123,13 @@ $(document).ready(function()
 		else
 		{
 			if (is_name.match(/^[a-zA-Z0-9-\/] ?([a-zA-Z0-9-\/]|[a-zA-Z0-9-\/] )*[a-zA-Z0-9-\/]$/)!=null) {
-				addr_err = false;
+				address_err = false;
 				input.removeClass("invalid").addClass("valid");
 				input.next().removeClass("error_show").addClass("error");
 			}
 
 			else{
-				addr_err=true;
+				address_err=true;
 				input.removeClass("valid").addClass("invalid");
 				input.next().removeClass('error').addClass('error_show').text("Should be alphanumberic.");
 			}
