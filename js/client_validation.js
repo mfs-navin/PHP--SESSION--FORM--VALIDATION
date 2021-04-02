@@ -1,9 +1,9 @@
 $(document).ready(function()
 {
 
-	function nameValidation()
+	function nameValidation(name)
 	{
-		var input = $(this);
+		var input = $(name);
 		var is_name = input.val();
 		var error = false;
 
@@ -40,9 +40,9 @@ $(document).ready(function()
 
 	}
 
-	function emailValidation($email)
+	function emailValidation(email)
 	{
-		var input=$(this);
+		var input=$(email);
 		var re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 		var is_email=re.test(input.val());
 		var error = false;
@@ -62,9 +62,9 @@ $(document).ready(function()
 		return error;
 	}
 
-	function phoneValidation($phone)
+	function phoneValidation(phone)
 	{
-		var input = $(this);
+		var input = $(phone);
 		var is_phone = input.val();
 		var error = false;
 
@@ -89,9 +89,9 @@ $(document).ready(function()
 		return error;
 	}
 
-	function addressValidation($address)
+	function addressValidation(address)
 	{
-		var input = $(this);
+		var input = $(address);
 		var is_name = input.val();
 		var error = false;
 
@@ -118,10 +118,11 @@ $(document).ready(function()
 		return error;
 	}
 
-	function educationQualificationValidation($educationValue)
+	function educationQualificationValidation(educationValue)
 	{
-		var education = $(this);
+		var education = $(educationValue);
 		var education_value = education.val();
+		console.log("education", education_value);
 		var error = false;
 
 		if( education_value == 0)
@@ -139,9 +140,9 @@ $(document).ready(function()
 		return error;
 	}
 
-	function aboutValidation($about)
+	function aboutValidation(about)
 	{
-		var about = $(this);
+		var about = $(about);
 		var is_about = about.val();
 		var error = false;
 
@@ -170,9 +171,9 @@ $(document).ready(function()
 		return error;
 	}
 
-	function linkedinValidation($linkedin)
+	function linkedinValidation(linkedin)
 	{
-		var link = $(this);
+		var link = $(linkedin);
 		var is_link = link.val();
 		var error = false;
 
@@ -191,9 +192,9 @@ $(document).ready(function()
 		return error;
 	}
 
-	function githubValidation($github)
+	function githubValidation(github)
 	{
-		var link = $(this);
+		var link = $(github);
 		var is_link = link.val();
 		var error = false;
 
@@ -212,9 +213,9 @@ $(document).ready(function()
 		return error;
 	}
 
-	function profilePictureValidation($photo)
+	function profilePictureValidation(photo)
 	{
-		$(this).data('clicked', true);
+		$(photo).data('clicked', true);
 
 		var file = $("#profile_pic")[0].files;
 		var error = false;
@@ -264,15 +265,17 @@ $(document).ready(function()
 	{
 		var error = false;
 
-		if($("input:radio[name='gender']").is(":checked"))
+		if( $("#skill_checkbox input[name='skills[]']:checked").length !=0)
 		{
 			error = false;
-			$("#error_gender").removeClass('error_show').addClass('error');
+			$("#error_skills").removeClass('error_show').addClass('error');
 		}
+
 		else
-		{
+		{ 
 			error=true;
-			$("#error_gender").removeClass('error').addClass('error_show');
+			$("#error_checkbox").removeClass('error').addClass('error_show');
+
 		}
 		return error;
 	}
@@ -280,93 +283,124 @@ $(document).ready(function()
 	var name_err = gender_err = email_err = phone_err = skills_err = photo_err = about_err = address_err = edu_err = linkedin_err = github_err= true;
 
 //Name
-	name_err = $('#name').keyup(nameValidation);
+$('#name').keyup(function()
+{
+	name_err = nameValidation('#name');
+});
 
 //Email
-	email_err = $('#email').keyup(emailValidation);
+$('#email').keyup(function()
+{
+	email_err = emailValidation('#email');
+});
 
 //Contact Number
-	phone_err = $('#phone').keyup(phoneValidation);
+$('#phone').keyup(function()
+{
+	phone_err = phoneValidation('#phone')
+});
 
 //Address
-	address_err = $('#address').keyup(addressValidation);
+$('#address').keyup(function()
+{
+	address_err = addressValidation('#address');
+});
 
 //Educational Qualification
-	edu_err = $('#education').change(educationQualificationValidation);
+$('#education').change(function()
+{
+	edu_err = educationQualificationValidation('#education');
+});
 
 //About
-	about_err = $('#about').keyup( aboutValidation);
+$(('#about')).keyup(function()
+{
+	about_err = aboutValidation('#about')
+});
 
 //Professional Links
-	linkedin_err = $("#linkedin").keyup(linkedinValidation);
+$("#linkedin").keyup(function()
+{
+	linkedin_err = linkedinValidation("#linkedin");
+});
 
-	github_err = $("#github").keyup(githubValidation);
+$("#github").keyup(function()
+{
+	github_err = githubValidation("#github");
+});
 
 /// File MIME type validation
-	photo_err = $("#upload").click(profilePictureValidation);
+$("#upload").click(function()
+{
+	photo_err = profilePictureValidation("#upload");
+});
 
 // Gender validation
-	gender_err = $("form input:radio").change(genderValidation);
+$("form input:radio").change(function()
+{
+	gender_err = genderValidation();
+});
 
 
 //Skills validation
-	skills_err = $("form input:checkbox").change(skillsValidation);
-	
+$("form input:checkbox").change(function()
+{
+	skills_err = skillsValidation();
+});
+
 
 // Validation on submitting form
-	$("#register").click(function(event)
+$("#register").click(function(event)
+{
+	if( name_err)
 	{
-		console.log("gender", gender_err);
-		console.log("skills", skills_err);
-		if( !name_err.hasClass('valid'))
-		{
-			$('#error_name').removeClass('error').addClass('error_show');
-		}
+		$('#error_name').removeClass('error').addClass('error_show');
+	}
 
-		if( !gender_err.hasClass('valid'))
-		{
-			$('#error_gender').removeClass('error').addClass('error_show');
-		}
+	if( gender_err)
+	{
+		$('#error_gender').removeClass('error').addClass('error_show');
+	}
 
-		if( !email_err.hasClass('valid'))
-		{
-			$('#error_email').removeClass('error').addClass('error_show');
-		}
+	if( email_err)
+	{
+		$('#error_email').removeClass('error').addClass('error_show');
+	}
 
-		if( !phone_err.hasClass('valid'))
-		{
-			$('#error_phone').removeClass('error').addClass('error_show');
-		}
+	if( phone_err)
+	{
+		$('#error_phone').removeClass('error').addClass('error_show');
+	}
 
-		if( !skills_err.hasClass('valid'))
-		{
-			$('#error_skills').removeClass('error').addClass('error_show');
-		}
+	if( skills_err)
+	{
+		$('#error_skills').removeClass('error').addClass('error_show');
+	}
 
-		if( !address_err.hasClass('valid'))
-		{
-			$('#error_address').removeClass('error').addClass('error_show');
-		}
+	if( address_err)
+	{
+		$('#error_address').removeClass('error').addClass('error_show');
+	}
 
-		if( !edu_err.hasClass('valid'))
-		{
-			$('#error_edu').removeClass('error').addClass('error_show');
-		}
+	if( edu_err)
+	{
+		$('#error_edu').removeClass('error').addClass('error_show');
+	}
 
-		if( !about_err.hasClass('valid'))
-		{
-			$('#error_about').removeClass('error').addClass('error_show');
-		}
+	if( about_err)
+	{
+		$('#error_about').removeClass('error').addClass('error_show');
+	}
 
-		if( !linkedin_err.hasClass('valid'))
-		{
-			$('#error_linkedin').removeClass('error').addClass('error_show');
-		}
+	if( linkedin_err)
+	{
+		$('#error_linkedin').removeClass('error').addClass('error_show');
+	}
 
-		if( !github_err.hasClass('valid'))
-		{
-			$('#error_github').removeClass('error').addClass('error_show');
-		}
+	if( github_err)
+	{
+		$('#error_github').removeClass('error').addClass('error_show');
+	}
 
 
 	  //File Validation
